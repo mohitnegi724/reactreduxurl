@@ -11,5 +11,11 @@
     "shorturl"
   ],
   "author": "mohit singh negi",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "mongodb": "^3.2.3",
+    "mongoose": "^5.5.4",
+    "uuid": "^3.3.2"
+  }
 }
