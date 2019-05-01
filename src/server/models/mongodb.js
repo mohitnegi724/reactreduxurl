@@ -2,22 +2,18 @@ const mongoose  = require('mongoose');
 const {Schema} = mongoose;
 
 //short Url Format
-const shortURL = new Schema({
-    originalUrl:{
-        type: String,
-        required:true
+const shortURLSchema = new Schema({
+    _id:{
+        type:String,
+        unique:true
     },
-    shortUrl: {
-        type: String,
-        required: true
-    },
-    expiryDate: {
-        type: Date
-    },
+    originalUrl:String,
+    shortUrl: String,
     createdDate:{
         type: Date,
-        default: Date.now
+        default: Date.now,
+        required: true
     }
 });
-const allUrls = mongoose.model('allUrls', shortURL);
+const allUrls = mongoose.model('allUrls', shortURLSchema);
 module.exports = allUrls;
