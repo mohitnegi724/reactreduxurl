@@ -7,6 +7,8 @@ const shortURLSchema = new Schema({
         type:String,
         unique:true
     },
+    linkOpened:Number,
+    expiryDate: Date,
     originalUrl:String,
     shortUrl: String,
     createdDate:{
