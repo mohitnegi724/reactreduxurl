@@ -26,13 +26,14 @@ app.get('/', (req, res) => {
 
 
 //Get Redirected
-app.get('/:id', (req, res) => {
-    let urlupcomingReqId = req.params.id;
-    Links.findOne({_id:urlupcomingReqId})
+app.get('/:shorturl', (req, res) => {
+    let reqshorturl = req.params.shorturl;
+    Links.findOne({"shortUrl":reqshorturl})
         .then(data => {
+            console.log(data);
             if(Date.now() < data.expiryDate){
                 res.status(301).redirect(data.originalUrl);
-                Links.findOneAndUpdate({_id:urlupcomingReqId}, {$set:{linkOpened:data.linkOpened+1}})
+                Links.findOneAndUpdate({"shortUrl":reqshorturl}, {$set:{linkOpened:data.linkOpened+1}})
                 .then(()=>console.log("Success"))
                 .catch(err=>console.log(err));
             }else{
@@ -66,8 +67,8 @@ app.post('/short', (req, res, next) => {
 
 //Premium Service
 app.get('/premium/:id', (req, res)=>{
-    let urlupcomingReqId = req.params.id;
-    Links.findByIdAndUpdate(urlupcomingReqId, { $set: { expiryDate: 1675276200000}}).then(data=>res.send(data)).catch(err=>res.send(err));
+    let reqshorturl = req.params.shorturl;
+    Links.findOne({"shorturl":reqshorturl}, { $set: { expiryDate: 1675276200000}}).then(data=>res.send(data)).catch(err=>res.send(err));
 });
 
 
